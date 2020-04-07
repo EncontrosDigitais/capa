@@ -29,10 +29,10 @@ function preload() {
 }
 
 function setup() {
-	size = min(windowWidth, windowHeight);
+	size = min(windowWidth, windowHeight) * 0.8;
 	createCanvas(windowWidth, windowHeight);
 	
-	center = createVector(width/2, height/2);
+	center = createVector(width/2, height/1.4);
 	radius = size/2.5;
 	
 	color1 = color("#581845");
@@ -81,9 +81,9 @@ function draw() {
 	pop();
 	
 	//cut text effect
-	let diff = USE_MOUSE_AROUND_CENTER ? map(cos(angle+PI/2), -1, 1, -100, 100) : map(pct, 0, 1, -100, 100);
+	let diff = USE_MOUSE_AROUND_CENTER ? map(cos(angle+PI/2), -1, 1, -size/6, size/6) : map(pct, 0, 1, -size/6, size/6);
 	fill(mode ? color1 : color2);
-	rect(0, height/2+diff, width, height/2-diff);
+	rect(0, center.y+diff, width, center.y-diff);
 	
 	//update
 	let mouse = createVector(mouseX, mouseY);
