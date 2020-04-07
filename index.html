@@ -1,0 +1,62 @@
+<html>
+  <title>Encontros Digitais - Capa</title>
+  <head>
+    <meta charset="utf-8"/>
+    <style>
+      body, html {
+        margin:0; padding: 0;
+      }
+      #legenda {
+        position: absolute;
+        bottom: 30px;
+        left: 30px;
+        background-color: #1a0633;
+        color: #fff;
+        padding: 10px;
+        font-family: monospace;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body onload="carrega('artes.json', inicia)">
+    <a id="legenda" href="#" target="_blank">Carregando...</a>
+
+    <script type="text/javascript">
+      function carrega(url, callback) {
+        var req = new XMLHttpRequest();
+        req.responseType = "json";
+        req.open("GET", url, true);
+        req.onreadystatechange = function() {
+          if (req.readyState === 4 && req.status === 200) {
+            callback(req.response);
+          }
+        };
+        req.send(null);
+      }
+
+      function inicia(dado){
+        if(dado.length > 0){
+          //seleciona aleatoriamente um valor de artes.json
+          let selecionado = dado[Math.floor(dado.length * Math.random())];
+
+          var ifrm = document.createElement("iframe");
+              ifrm.setAttribute("src", selecionado.pasta);
+              ifrm.style.width = "100%";
+              ifrm.style.height = "100%";
+              ifrm.setAttribute("crossorigin", "anonymous");
+              ifrm.setAttribute("allow", "midi; geolocation; microphone; camera; encrypted-media; accelerometer; magnetometer; gyroscope;");
+              ifrm.setAttribute("sandbox", "allow-forms allow-scripts allow-same-origin allow-modals allow-popups");
+              ifrm.setAttribute("allowfullscreen", "");
+              ifrm.setAttribute("allowpaymentrequest", "");
+              ifrm.setAttribute("allowtransparency", "true");
+              ifrm.setAttribute("frameborder", "0");
+              document.body.appendChild(ifrm);
+
+          var legenda = document.getElementById("legenda");
+              legenda.setAttribute("href", selecionado.link);
+              legenda.innerHTML = selecionado.autor + " - " + selecionado.titulo;
+        }
+      }
+    </script>
+  </body>
+</html>
